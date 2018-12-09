@@ -1,9 +1,7 @@
 package com.bmuschko.todo.webservice.repository;
 
 import com.bmuschko.todo.webservice.model.ToDoItem;
-import org.junit.ClassRule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -11,16 +9,17 @@ import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.testcontainers.containers.DockerComposeContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.io.File;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 
-@RunWith(SpringRunner.class)
+@Testcontainers
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = NONE)
 @ContextConfiguration(initializers = { DockerComposeIntegrationTest.Initializer.class })
@@ -33,7 +32,7 @@ public class DockerComposeIntegrationTest {
     @Autowired
     private ToDoRepository repository;
 
-    @ClassRule
+    @Container
     public static DockerComposeContainer environment = createComposeContainer();
 
     private static DockerComposeContainer createComposeContainer() {

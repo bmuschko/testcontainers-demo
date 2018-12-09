@@ -6,19 +6,21 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.images.builder.ImageFromDockerfile;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Testcontainers
 public class ToDoWebServiceFunctionalTest {
 
     private final static File DISTRIBUTION_DIR = new File(System.getProperty("distribution.dir"));
@@ -27,7 +29,7 @@ public class ToDoWebServiceFunctionalTest {
     private final static MediaType JSON_MEDIA_TYPE = MediaType.get("application/json");
     private final OkHttpClient client = new OkHttpClient();
 
-    @ClassRule
+    @Container
     public static GenericContainer appContainer = createAppContainer();
 
     private static GenericContainer createAppContainer() {
