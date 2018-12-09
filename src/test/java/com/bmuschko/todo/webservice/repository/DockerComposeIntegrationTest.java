@@ -55,8 +55,13 @@ public class DockerComposeIntegrationTest {
     private static String getPostgresServiceUrl() {
         String postgresHost = environment.getServiceHost(POSTGRES_SERVICE_NAME, POSTGRES_SERVICE_PORT);
         Integer postgresPort = environment.getServicePort(POSTGRES_SERVICE_NAME, POSTGRES_SERVICE_PORT);
-        String postgresHostAndPort = postgresHost + ":" + postgresPort;
-        return "jdbc:postgresql://" + postgresHostAndPort + "/todo";
+        StringBuilder postgresServiceUrl = new StringBuilder();
+        postgresServiceUrl.append("jdbc:postgresql://");
+        postgresServiceUrl.append(postgresHost);
+        postgresServiceUrl.append(":");
+        postgresServiceUrl.append(postgresPort);
+        postgresServiceUrl.append("/todo");
+        return postgresServiceUrl.toString();
     }
 
     @Test
